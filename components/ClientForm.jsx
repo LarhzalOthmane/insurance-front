@@ -12,7 +12,7 @@ const ClientForm = ({ view, add, edit, id }) => {
   const [functions, setFunctions] = useState([])
 
   const handleDelete = async () => {
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/deleteClient?id=${id}?projection=${process.env.NEXT_PUBLIC_CLIENT_PROJECTION}`)
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/deleteClient?id=${id}`)
     alert(`Client with id ${id} deleted!`)
     await Router.push('/clients')
   }
@@ -49,6 +49,7 @@ const ClientForm = ({ view, add, edit, id }) => {
   const onSubmit = async data => {
     //  Format Client object to send
     const client = {
+      id: null,
       cin: data.cin,
       prenom: data['First name'],
       nom: data['Last name'],
@@ -60,7 +61,7 @@ const ClientForm = ({ view, add, edit, id }) => {
     //  Post/Put Client
     if (mode === 'add') {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/addClient?projection=${process.env.NEXT_PUBLIC_CLIENT_PROJECTION}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/addClient`,
         client
       )
       await Router.push(`/clients`)

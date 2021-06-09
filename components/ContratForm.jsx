@@ -14,7 +14,7 @@ const ContratForm = ({ view, add, edit, id }) => {
   // const [contrat, setContrat] = useState({})
 
   const handleDelete = async () => {
-    await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/deleteContrat?id=${id}?projection=${process.env.NEXT_PUBLIC_CONTRAT_PROJECTION}`)
+    await axios.delete(`${process.env.NEXT_PUBLIC_API_BASE_URL}/deleteContrat?id=${id}`)
     alert(`Contrat with id ${id} deleted!`)
     await Router.push('/contrats')
   }
@@ -53,15 +53,20 @@ const ContratForm = ({ view, add, edit, id }) => {
 
   const onSubmit = async data => {
     const contract = {
-      ...data
+      ...data,
+      categorie: {id: data.categorie},
+      agence: {id: data.agence}, 
+      client: {id: data.client}
     }
 
     if (mode === 'add') {
       await axios.post(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/addContrat?projection=${process.env.NEXT_PUBLIC_CONTRAT_PROJECTION}`, contract)
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/addContrat`, contract)
       await Router.push(`/contrats`)
     } else {
-      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/editContact/${id}?projection=${process.env.NEXT_PUBLIC_CONTRAT_PROJECTION}`, contract)
+      contract.id = id;
+      console.log("contract id : " + contract.id);
+      await axios.put(`${process.env.NEXT_PUBLIC_API_BASE_URL}/editContrat`, contract)
       setMode('view')
     }
 
@@ -125,7 +130,7 @@ const ContratForm = ({ view, add, edit, id }) => {
                   {
                     categories.map(category => <option key={category.id} id={category.id}
                                                        value={`${category.id}`}>
-                        {category.nom}
+                        {category.intitule}
                       </option>
                     )
                   }
