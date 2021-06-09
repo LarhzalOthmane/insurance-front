@@ -68,9 +68,9 @@ const ClientForm = ({ view, add, edit, id }) => {
     } else {
       //  Update
       client.id = id
-      console.log({client})
+      console.log(JSON.stringify(client))
       await axios.put(
-        `${process.env.NEXT_PUBLIC_API_BASE_URL}/editClient?projection=${process.env.NEXT_PUBLIC_CLIENT_PROJECTION}`,
+        `${process.env.NEXT_PUBLIC_API_BASE_URL}/editClient`,
         client
       )
 
@@ -109,7 +109,7 @@ const ClientForm = ({ view, add, edit, id }) => {
       </div>
       <form className="w-full max-w-lg mt-6" onSubmit={handleSubmit(onSubmit)}>
         <div className="flex flex-wrap -mx-3 mb-6">
-          <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+          {/* <div className="w-full md:w-1/2 px-3 mb-6 md:mb-0">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                    htmlFor="first-name">
               First Name
@@ -118,11 +118,11 @@ const ClientForm = ({ view, add, edit, id }) => {
                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
                    {...register('First name', { required: true, maxLength: 80 })}
                    id="first-name" type="text" />
-          </div>
+          </div> */}
           <div className="w-full md:w-1/2 px-3">
             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
                    htmlFor="last-name">
-              Last Name
+              Name
             </label>
             <input {...(mode === 'view' && ({ readOnly: true }))}
                    className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"

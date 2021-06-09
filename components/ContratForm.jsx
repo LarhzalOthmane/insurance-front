@@ -29,7 +29,7 @@ const ContratForm = ({ view, add, edit, id }) => {
       console.log({ contrat })
 
       setValue('matricule', contrat?.matricule)
-      setValue('categorie', mode === 'view' ? contrat?.categorie?.nom : contrat?.categorie?.id)
+      setValue('categorie', mode === 'view' ? contrat?.categorie?.intitule : contrat?.categorie?.id)
       setValue('agence', mode === 'view' ? contrat?.agence?.nom : contrat?.agence?.id)
       setValue('client', mode === 'view'
         ? `${contrat?.client?.cin}: ${contrat?.client?.nom} ${contrat?.client?.prenom}`
